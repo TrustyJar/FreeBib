@@ -45,6 +45,11 @@ body{
     text-shadow: 1px 1px 2px rgba(255,255,255,0.25);
     animation: animate 10s ease-in-out infinite;
 }
+
+.content h2 a:hover {
+    background-color: 'purple';
+}
+
 @keyframes animate {
 0%{
     background-position: 0 0;
@@ -102,6 +107,7 @@ body{
     transition: all 0.3s ease;
 }
 .content .btns a:hover{
+    border: 6px solid #69a6ce;
     background: #69a6ce;
     color: #fff;
 }
