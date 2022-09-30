@@ -54,7 +54,7 @@ async function runServer() {
     */
     app.use(function(req, res, next){
         //Sending 404 Message
-        res.status(403).sendFile(path.join(__dirname, './public/404.html'));
+        res.status(404).sendFile(path.join(__dirname, './public/404.html'));
     });
 
     /*
