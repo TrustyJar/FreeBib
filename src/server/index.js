@@ -5,7 +5,7 @@ let port = process.env.PORT || 3000;
 let ejs = require('ejs')
 const cookieParser = require("cookie-parser");
 const { v4: uuidv4 } = require('uuid');
-const { generateCitation } = require('../app/generateCitation')
+const { generateCitation } = require('../app/generateCitation.js')
 const {encryptData} = require('../../Security/encryptData.js');
 const errorLog = require('../../Data/Responses/404.json')
 //Defining Imports an Variables
@@ -23,7 +23,9 @@ async function runServer() {
     parse url encoded and json formatted payload. Without this,
     no App.Post methods will work. 
     */
-    app.use(express.static(__dirname + '/public'));
+    app.use('/assets',express.static(path.join(__dirname, 'public/assets')));
+    app.use('/js',express.static(path.join(__dirname, 'public/js')));
+    app.use('/css',express.static(path.join(__dirname, 'public/css')));
     app.use(express.json());
     app.use(express.urlencoded({
         extended: false
