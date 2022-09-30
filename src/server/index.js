@@ -47,12 +47,7 @@ async function runServer() {
 
         generateData();
     });
-
-    app.get('/css/404.css', function (req, res, next) {
-        res.status(200).sendFile(path.join(__dirname, './public/css/404.css'));
-    });
     
-
     /*
     This method will be used to redirect users whenever they visit an invalid page, rather
     than giving them the ugly express error.
