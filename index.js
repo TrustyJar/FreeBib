@@ -1,3 +1,3 @@
-const {runServer} = require('./Backend/server/index.js');
+const {runServer} = require('./src/server/index.js');
 
 runServer();

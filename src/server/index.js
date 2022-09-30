@@ -4,9 +4,8 @@ const app = express();
 let port = process.env.PORT || 3000;
 let ejs = require('ejs')
 const cookieParser = require("cookie-parser");
-const {cssServer} = require('./cssFunc.js');
 const { v4: uuidv4 } = require('uuid');
-const {generateCitation} = require('../Utils/Functionality/generateCitation.js')
+const { generateCitation } = require('../app/generateCitation')
 const {encryptData} = require('../../Security/encryptData.js');
 const errorLog = require('../../Data/Responses/404.json')
 //Defining Imports an Variables
@@ -19,17 +18,12 @@ be the main file of the program, calling many other seperate function files.
 */
 async function runServer() {
 
-    //Running server to capture CSS objects
-    cssServer(app);
-
-
     /*
     These few lines are very important. They allow you to
     parse url encoded and json formatted payload. Without this,
     no App.Post methods will work. 
     */
-    app.use('/css',express.static(__dirname +'/css'));
-    app.set('view engine', 'ejs');
+    app.use(express.static(__dirname + '/public'));
     app.use(express.json());
     app.use(express.urlencoded({
         extended: false
@@ -48,11 +42,16 @@ async function runServer() {
             //Placeholder value
             const setData = await generateCitation('https://www.wesh.com/article/ian-tropical-storm-flooding/41437849')
             console.log(setData)
-            res.status(200).sendFile(path.join(__dirname, '../../Frontend/index.html'));
+            res.status(200).sendFile(path.join(__dirname, './public/index.html'));
         }
 
         generateData();
     });
+
+    app.get('/css/404.css', function (req, res, next) {
+        res.status(200).sendFile(path.join(__dirname, './public/css/404.css'));
+    });
+    
 
     /*
     This method will be used to redirect users whenever they visit an invalid page, rather
@@ -60,7 +59,7 @@ async function runServer() {
     */
     app.use(function(req, res, next){
         //Sending 404 Message
-        res.status(404).render('404');
+        res.status(403).sendFile(path.join(__dirname, './public/404.html'));
     });
 
     /*
