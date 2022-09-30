@@ -11,7 +11,7 @@ async function cipherString(str) { // LBH QVQ VG!
       } else {
         arr.push(String.fromCharCode(str.charCodeAt(i) + 13));
       }
-    }
+    }   
   
     return arr.join("");
 }
@@ -19,8 +19,8 @@ async function cipherString(str) { // LBH QVQ VG!
 async function encodeString(str) {
     let encryptedString = str.toUpperCase();
     encryptedString = await cipherString(encryptedString);
-    encryptedString = Base64.encode(encryptedString);
-    console.log(encryptedString);
+    encryptedString = await Base64.encode(encryptedString);
+    return encryptedString;
 }
 
 encodeString("Hello World!");
