@@ -74,14 +74,16 @@ async function runServer() {
             const decryptedFormat = await decodeString(req.body.type);
 
             const citationData = await generateCitation(decryptedURL);
-            console.log(citationData);
+            res.send(citationData);
             
         }
 
         if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
             if(req.body.securityToken % 7 == 0) {
                 const preSess = await encryptData("decryption", req.cookies.preSess);
-                if(preSess == req.headers['x-forwarded-for'] || req.connection.remoteAddress) {
+                if(preSess == "") {
+                    res.status(403).send(accessDenied);
+                } else if(req.headers['x-forwarded-for'] || req.connection.remoteAddress) {
                     runPostFunc();
                 } else {
                     res.status(403).send(accessDenied);
