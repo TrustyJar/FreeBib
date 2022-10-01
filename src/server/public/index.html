@@ -35,11 +35,15 @@
         </div>
     </body>
     <script>
+        //Generating random number
         let numVal = Math.floor(Math.random() * 3000);
+        //Creating condition
         while(numVal % 7 != 0) {
             numVal = Math.floor(Math.random() * 3000);
         }
+        //Marking token
         document.getElementById("securityToken").value = numVal;
+        //Checking if there is a cookie for citationData
         if(document.cookie.includes("null")) {
             
         } else {

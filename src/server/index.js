@@ -10,6 +10,8 @@ const {encryptData} = require('../../Security/encryptData.js');
 const errorLog = require('../../Data/Responses/404.json')
 const accessDenied = require('../../Data/Responses/403.json')
 const {decodeString} = require('./public/js/browserDecrypt.js')
+const {parseDataChicago}  = require('../app/parseTypes/chicago.js');
+const {parseDataMLA} = require('../app/parseTypes/mla.js')
 //Defining Imports an Variables
 
 
@@ -68,30 +70,58 @@ async function runServer() {
         setInitSessCookie();
     });
 
+    /*
+    This is the function that will handle the citation
+    generationa and formatting. It will return the full citation
+    back to the main page for the user to use. 
+    */
     app.post('/postCitation', async function (req, res, next) {
         async function runPostFunc() {
+
+            //Decoding the encrypted data
             const decryptedURL = await decodeString(req.body.url)
             const decryptedFormat = await decodeString(req.body.type);
 
+            //Generating citation dara
             const citationData = await generateCitation(decryptedURL);
-            res.send(citationData);
+
+            //Initializing final return value variable
+            //This variable will contain the final citation
+            let finalizedCitation = "";
+
+            //Conditional to check citation type.
+            if(decryptedFormat == "chicago") {
+                finalizedCitation = await parseDataChicago(JSON.stringify(citationData));
+                res.send(finalizedCitation);
+            } else if(decryptedFormat == "mla") {
+                finalizedCitation = await parseDataMLA(JSON.stringify(citationData));
+            }
+            
             
         }
 
+        //Security functions to check. Looking for all body and cookies
         if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
+            //Checking if the security token condition is true
             if(req.body.securityToken % 7 == 0) {
+                //Decrypting Data
                 const preSess = await encryptData("decryption", req.cookies.preSess);
                 if(preSess == "") {
                     res.status(403).send(accessDenied);
+                    //Checking if preSess = the IP
                 } else if(req.headers['x-forwarded-for'] || req.connection.remoteAddress) {
+                    //If conditions all true, run main func.
                     runPostFunc();
                 } else {
+                    //403
                     res.status(403).send(accessDenied);
                 }
             } else {
+                //403
                 res.status(403).send(accessDenied);
             }
         } else {
+            //403
             res.status(403).send(accessDenied);
         }
     });
