@@ -8,6 +8,8 @@ const { v4: uuidv4 } = require('uuid');
 const { generateCitation } = require('../app/generateCitation.js')
 const {encryptData} = require('../../Security/encryptData.js');
 const errorLog = require('../../Data/Responses/404.json')
+const accessDenied = require('../../Data/Responses/403.json')
+const {decodeString} = require('./public/js/browserDecrypt.js')
 //Defining Imports an Variables
 
 
@@ -67,7 +69,24 @@ async function runServer() {
     });
 
     app.post('/postCitation', async function (req, res, next) {
-        res.send(JSON.stringify(req.body));
+        async function runPostFunc() {
+            const decryptedURL = await decodeString(req.body.url)
+            const decryptedFormat = await decodeString(req.body.type);
+
+            const citationData = await generateCitation(decryptedURL);
+            console.log(citationData);
+            
+        }
+
+        if(req.body.url && req.body.type && req.body.securityToken) {
+            if(req.body.securityToken % 7 == 0) {
+                runPostFunc();
+            } else {
+                res.status(403).send(accessDenied);
+            }
+        } else {
+            res.status(403).send(accessDenied);
+        }
     });
     
     /*
