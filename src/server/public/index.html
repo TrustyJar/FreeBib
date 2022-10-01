@@ -3,8 +3,28 @@
     <head>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="http://127.0.0.1:3000/css/index.css">
+        <script src="http://127.0.0.1:3000/js/webpackIndex.js"></script>
     </head>
-    <body>
-        <p>Let's get started!</p>
+    <body class="mainBackgroundBody">
+        <div class="titleDiv">
+            <span class="titleClass" >FreeBib</span>
+        </div>
+        <div class="studentDiv">
+            <span class="studentClass">Made by students, for students</span>
+        </div>
+        <div class="zeroAds">
+            <span class="zeroAdsClass">Zero Ads</span>
+        </div>
+        <span class="urlVar">URL</span>
+        <input class="urlInput" id="citationURL" type="text" placeholder="https://www.yourcitation.com/..."required>
+        <span class="typeVar">Type</span>
+        <div class="box" id="box">
+            <select class="box2" id="box2" required>
+                <option value="invalid">Enter Type: </option>
+                <option value="chicago">Chicago Style</option>
+                <option value="mla">MLA</option>
+            </select>
+        </div>
+        <button class="submitButton" type="submit" onclick="submitForm()">Submit</button>
     </body>
 </html>

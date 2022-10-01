@@ -27,9 +27,7 @@ async function runServer() {
     app.use('/js',express.static(path.join(__dirname, 'public/js')));
     app.use('/css',express.static(path.join(__dirname, 'public/css')));
     app.use(express.json());
-    app.use(express.urlencoded({
-        extended: false
-    }));
+    app.use(express.urlencoded({ extended: true }));   
     app.use(cookieParser())
 
 
@@ -41,13 +39,36 @@ async function runServer() {
     app.get('/', function (req, res, next) {
 
         async function generateData() {
-            //Placeholder value
-            const setData = await generateCitation('https://www.wesh.com/article/ian-tropical-storm-flooding/41437849')
-            console.log(setData)
             res.status(200).sendFile(path.join(__dirname, './public/index.html'));
         }
 
-        generateData();
+        async function setInitSessCookie() {
+
+            const preSess = await encryptData("encryption", req.headers['x-forwarded-for'] || req.connection.remoteAddress);
+
+            res.cookie('preSess', preSess, {
+                maxAge: 6.048e+8,
+                httpOnly: true
+            });
+
+            const nullIDEncrypted = await encryptData("encryption", "null");
+
+            if(req.cookies.bibSess == undefined) {
+                res.cookie('bibSess', nullIDEncrypted, {
+                    maxAge: 3.156e+10,
+                    httpOnly: true
+                });
+            }
+            
+            
+            generateData();
+        }
+
+        setInitSessCookie();
+    });
+
+    app.post('/postCitation', async function (req, res, next) {
+        res.send(JSON.stringify(req.body));
     });
     
     /*
