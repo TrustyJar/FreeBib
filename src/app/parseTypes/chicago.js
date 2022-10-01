@@ -18,7 +18,7 @@ async function parseDataChicago(citationData) {
     let datepublished = newCitationData.results[0].feedback._publishedMonth;
     datepublished = await parseDates(datepublished);
 
-    let finalResult = `${name} ${titleOfStory}, published on ${datepublished} ${dayPublished}, ${yearPublished} by ${publisher}.`
+    let finalResult = `${name}, ${titleOfStory}, published on ${datepublished} ${dayPublished}, ${yearPublished} by ${publisher}.`
 
     return finalResult;
 

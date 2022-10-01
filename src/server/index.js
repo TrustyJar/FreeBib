@@ -95,6 +95,7 @@ async function runServer() {
                 res.send(finalizedCitation);
             } else if(decryptedFormat == "mla") {
                 finalizedCitation = await parseDataMLA(JSON.stringify(citationData));
+                res.send(finalizedCitation);
             }
             
             
