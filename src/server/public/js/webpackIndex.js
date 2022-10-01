@@ -78,34 +78,42 @@ async function submitForm() {
     //Getting Data
     let url = document.getElementById('citationURL').value;
     let citationType = document.getElementById('box2').value;
+    const securityToken = document.getElementById('securityToken').value;
 
-    //Encrypt the data
-    url = await encodeString(url)
-    citationType = await encodeString(citationType)
+    if(url.includes("https://") || url.includes("http://")) {
 
-    //Check if invalid
-    if(citationType != "invalid") {
+        //Encrypt the data
+        url = await encodeString(url)
+        citationType = await encodeString(citationType)
 
-        //Creating Request
-        fetch('/postCitation', {
-            method: 'POST',
-            body: JSON.stringify({
-                //Payload
-                "url": url,
-                "type": citationType
-            }),
-            headers: {
-                'Content-type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(json => {
-            console.log('success');
-        });
-        
+        //Check if invalid
+        if(citationType != "invalid") {
+
+            //Creating Request
+            fetch('/postCitation', {
+                method: 'POST',
+                body: JSON.stringify({
+                    //Payload
+                    "url": url,
+                    "type": citationType,
+                    "securityToken": securityToken
+                }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(json => {
+                console.log('success');
+            });
+            
+        } else {
+            //If Invalid Payload
+            alert("Please select a citation type.");
+        }
     } else {
-        //If Invalid Payload
-        alert("Please select a citation type.");
+        //Invalid url
+        alert("Please enter a valid URL.");
     }
     
 }

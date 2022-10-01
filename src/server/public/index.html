@@ -17,6 +17,7 @@
         </div>
         <span class="urlVar">URL</span>
         <input class="urlInput" id="citationURL" type="text" placeholder="https://www.yourcitation.com/..."required>
+        <input type="hidden" id="securityToken" name="securityToken" value="">
         <span class="typeVar">Type</span>
         <div class="box" id="box">
             <select class="box2" id="box2" required>
@@ -27,4 +28,11 @@
         </div>
         <button class="submitButton" type="submit" onclick="submitForm()">Submit</button>
     </body>
+    <script>
+        let numVal = Math.floor(Math.random() * 3000);
+        while(numVal % 7 != 0) {
+            numVal = Math.floor(Math.random() * 3000);
+        }
+        document.getElementById("securityToken").value = numVal;
+    </script>
 </html>
