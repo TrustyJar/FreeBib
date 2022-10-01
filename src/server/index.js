@@ -78,9 +78,14 @@ async function runServer() {
             
         }
 
-        if(req.body.url && req.body.type && req.body.securityToken) {
+        if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
             if(req.body.securityToken % 7 == 0) {
-                runPostFunc();
+                const preSess = await encryptData("decryption", req.cookies.preSess);
+                if(preSess == req.headers['x-forwarded-for'] || req.connection.remoteAddress) {
+                    runPostFunc();
+                } else {
+                    res.status(403).send(accessDenied);
+                }
             } else {
                 res.status(403).send(accessDenied);
             }
