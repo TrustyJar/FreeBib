@@ -62,7 +62,7 @@ async function setCookie(cname, cvalue, exdays) {
     //Setting Expiration Date
     var expires = "expires=" + d.toUTCString();
     //Setting Cookie
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    document.cookie += cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 

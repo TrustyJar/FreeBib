@@ -230,3 +230,23 @@
   background-color: #ffeba7;
   color: #102770;
 }
+
+.citationDiv {
+    position: relative;
+    margin-top: 2%;
+    top: 20%;
+    left: 54%;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 7px;
+    display:block;
+    width: 550px;
+    height: 675px;
+}
+
+.citationClass {
+    position: absolute;
+    top: 50%;
+    right: 40%;
+    text-align: center;
+}

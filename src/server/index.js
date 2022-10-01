@@ -48,15 +48,14 @@ async function runServer() {
 
             res.cookie('preSess', preSess, {
                 maxAge: 6.048e+8,
-                httpOnly: true
+                httpOnly: false
             });
 
-            const nullIDEncrypted = await encryptData("encryption", "null");
 
             if(req.cookies.bibSess == undefined) {
-                res.cookie('bibSess', nullIDEncrypted, {
+                res.cookie('bibSess', "null", {
                     maxAge: 3.156e+10,
-                    httpOnly: true
+                    httpOnly: false
                 });
             }
             
