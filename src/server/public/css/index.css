@@ -378,6 +378,26 @@ html, body {
     display: none;
 }
 
+.ringText4 {
+    position: absolute;
+    top: 81.5%;
+    left: 32%;
+    font-weight: 400;
+    font-style: normal; 
+    color: #ffeba7; 
+    text-decoration: none;
+    font-family:sans-serif;
+    font-size: 180%;
+    line-height: 96px;
+    letter-spacing: 0em;
+    --para-spacing:0;
+    text-transform: none; 
+    --head-indent:0; 
+    --numeric-list-marker:none; 
+    list-style-type: none;
+    display: none;
+}
+
 .lds-ring div {
     box-sizing: border-box;
     display: block;

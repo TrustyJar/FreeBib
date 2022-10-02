@@ -30,19 +30,20 @@
         <span class="ringText" id="ringText">Loading Citation...</span>
         <span class="ringText2" id="ringText2">Success!</span>
         <span class="ringText3" id="ringText3">Error!</span>
+        <span class="ringText4" id="ringText4">Copied To Clipboard!</span>
         <button class="submitButton" type="submit" onclick="submitForm()">Submit</button>
         <div class="outerContainer" id="outerContainer">
             <div class="citationDiv">
                 <span class="citationClass" id="citationClass">Nothing Here :/</span>
                 <span class="citationClass" id="citationClass2" style="top:55%; right: 46.5%">🗑️</span>
             </div>
-            <div class="citation1" id="citation1">
+            <div class="citation1" id="citation1" onClick="copyText(1)">
                 <span class="citationtext" id="citationtext1">null</span>
             </div>
-            <div class="citation2" id="citation2">
+            <div class="citation2" id="citation2" onClick="copyText(2)">
                 <span class="citationtext" id="citationtext2">null</span>
             </div>
-            <div class="citation3" id="citation3">
+            <div class="citation3" id="citation3" onClick="copyText(3)">
                 <span class="citationtext" id="citationtext3">null</span>
             </div>
         </div>
@@ -62,6 +63,30 @@
         } else {
             document.getElementById("citationClass").style.display = "none";
             document.getElementById("citationClass2").style.display = "none";
+        }
+    </script>
+    <script>
+        function copyText(citationNum) {
+
+            let copyText = "";
+            
+            if(citationNum == 1) {
+                copyText = document.getElementById("citationtext1");
+            } else if(citationNum == 2) {
+                copyText = document.getElementById("citationtext2");
+            } else {
+                copyText = document.getElementById("citationtext3");
+            }
+
+            navigator.clipboard.writeText(copyText.innerHTML);
+
+            document.getElementById("ringText4").style.display = "inline-block";
+
+            setTimeout(function() {
+                    document.getElementById('ringText4').style.display = "none"
+            }, 1000);
+
+
         }
     </script>
 </html>
