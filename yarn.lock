@@ -1928,10 +1928,10 @@ heroku-exec-util@0.7.5:
     temp "0.8.3"
     uuid "3.2.1"
 
-heroku-ssl-redirect@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/heroku-ssl-redirect/-/heroku-ssl-redirect-0.1.1.tgz#c55d60c0ec4473358ead66c75e8c7e99d9e8a689"
-  integrity sha512-kL/DvLR2J53iB3TXasQlo5JwF/j2L2zkala6Ddk9o6JwIPeDvbTGT9Aty8WElxcF389ObICCeyf2m7RKpCg5Bg==
+heroku-ssl-redirect@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/heroku-ssl-redirect/-/heroku-ssl-redirect-0.0.4.tgz#21ba0707aa503b50a412a0946abfaa88ef7d082c"
+  integrity sha512-eZ5bzgayDTYdsUBlokulVfdCcENqTeKACwEEZ+aIPPaASA8v77nDHDtz61uU/keWXX+aljC8SUSuabHB33jIOg==
 
 heroku@^7.63.4:
   version "7.63.4"
