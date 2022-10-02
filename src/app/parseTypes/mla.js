@@ -14,8 +14,6 @@ async function parseDataMLA(citationData) {
 
     let section = newCitationData.results[0].csl['title-short']
 
-    let publisher = newCitationData.results[0].csl.publisher;
-
     let yearPublished = newCitationData.results[0].feedback._publishedYear
 
     let finalResult = `${name}. ${titleOfStory.slice(0, -1)}, ${section}, edited by ${name}, ${yearPublished}`

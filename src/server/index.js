@@ -8,6 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const { generateCitation } = require('../app/generateCitation.js')
 const {encryptData} = require('../../Security/encryptData.js');
 const errorLog = require('../../Data/Responses/404.json')
+const payloadError = require('../../Data/Responses/400.json')
 const accessDenied = require('../../Data/Responses/403.json')
 const {decodeString} = require('./public/js/browserDecrypt.js')
 const {parseDataChicago}  = require('../app/parseTypes/chicago.js');
@@ -85,19 +86,29 @@ async function runServer() {
             //Generating citation dara
             const citationData = await generateCitation(decryptedURL);
 
-            //Initializing final return value variable
-            //This variable will contain the final citation
-            let finalizedCitation = "";
+            if(citationData == "Invalid Response" || citationData == "Error HTTP") {
+                res.send(payloadError)
+            } else {
 
-            //Conditional to check citation type.
-            if(decryptedFormat == "chicago") {
-                finalizedCitation = await parseDataChicago(JSON.stringify(citationData));
-                res.send(finalizedCitation);
-            } else if(decryptedFormat == "mla") {
-                finalizedCitation = await parseDataMLA(JSON.stringify(citationData));
-                res.send(finalizedCitation);
-            }
-            
+                //Initializing final return value variable
+                //This variable will contain the final citation
+                let finalizedCitation = "";
+
+                //Conditional to check citation type.
+                if(decryptedFormat == "chicago") {
+                    finalizedCitation = await parseDataChicago(JSON.stringify(citationData));
+                    res.send({
+                        "status": 200,
+                        "data": finalizedCitation
+                    });
+                } else if(decryptedFormat == "mla") {
+                    finalizedCitation = await parseDataMLA(JSON.stringify(citationData));
+                    res.send({
+                        "status": 200,
+                        "data": finalizedCitation
+                    });
+                }
+            }            
             
         }
 

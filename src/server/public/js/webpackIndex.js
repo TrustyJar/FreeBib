@@ -89,23 +89,25 @@ async function submitForm() {
         //Check if invalid
         if(citationType != "invalid") {
 
-            //Creating Request
-            fetch('/postCitation', {
-                method: 'POST',
-                body: JSON.stringify({
-                    //Payload
-                    "url": url,
-                    "type": citationType,
-                    "securityToken": securityToken
-                }),
-                headers: {
-                    'Content-type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(json => {
-                console.log('success');
-            });
+            try {
+                const response = await fetch('/postCitation', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        //Payload
+                        "url": url,
+                        "type": citationType,
+                        "securityToken": securityToken
+                    }),
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                })
+                const resData = await response.json();
+                console.log(resData)
+
+            } catch (e) {
+                
+            }
             
         } else {
             //If Invalid Payload
