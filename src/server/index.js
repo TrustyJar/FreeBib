@@ -109,23 +109,33 @@ async function runServer() {
                 if(decryptedFormat == "chicago") {
                     //Parsing data in chicago
                     finalizedCitation = await parseDataChicago(JSON.stringify(citationData));
-                    //Handling cookies
-                    await handleCookies(finalizedCitation);
-                    //Sending Response
-                    res.send({
-                        "status": 200,
-                        "data": finalizedCitation
-                    });
+                    //Error Conditional
+                    if(finalizedCitation == "Invalid URL") {
+                        res.status(400).send(payloadError);
+                    } else {
+                        //Handling cookies
+                        await handleCookies(finalizedCitation);
+                        //Sending Response
+                        res.send({
+                            "status": 200,
+                            "data": finalizedCitation
+                        });
+                    }
                 } else if(decryptedFormat == "mla") {
                     //Parsing data in mla
                     finalizedCitation = await parseDataMLA(JSON.stringify(citationData));
-                    //Handling cookies
-                    await handleCookies(finalizedCitation);
-                    //Sending Response
-                    res.send({
-                        "status": 200,
-                        "data": finalizedCitation
-                    });
+                    //Error Conditional
+                    if(finalizedCitation == "Invalid URL") {
+                        res.status(400).send(payloadError);
+                    } else {
+                        //Handling cookies
+                        await handleCookies(finalizedCitation);
+                        //Sending Response
+                        res.send({
+                            "status": 200,
+                            "data": finalizedCitation
+                        });
+                    }
                 }
             }            
             
