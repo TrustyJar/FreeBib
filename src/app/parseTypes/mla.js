@@ -5,20 +5,30 @@ sent from so it can return back to the frontend.
 */
 async function parseDataMLA(citationData) {
 
-    let newCitationData = JSON.parse(citationData);
+    let returnVal = "";
 
-    let name = `${newCitationData.results[0].csl.author[0].given} ${newCitationData.results[0].csl.author[0].family}`
+    try {
 
-    let titleOfStory = `"${newCitationData.results[0].csl.title}"`
-    titleOfStory = await formatTitle(titleOfStory);
+        let newCitationData = JSON.parse(citationData);
 
-    let section = newCitationData.results[0].csl['title-short']
+        let name = `${newCitationData.results[0].csl.author[0].given} ${newCitationData.results[0].csl.author[0].family}`
 
-    let yearPublished = newCitationData.results[0].feedback._publishedYear
+        let titleOfStory = `"${newCitationData.results[0].csl.title}"`
+        titleOfStory = await formatTitle(titleOfStory);
 
-    let finalResult = `${name}. ${titleOfStory.slice(0, -1)}, ${section}, edited by ${name}, ${yearPublished}`
+        let section = newCitationData.results[0].csl['title-short']
 
-    return finalResult;
+        let yearPublished = newCitationData.results[0].feedback._publishedYear
+
+        let finalResult = `${name}. ${titleOfStory.slice(0, -1)}, ${section}, edited by ${name}, ${yearPublished}`
+
+        returnVal = finalResult;
+
+    } catch (e) {
+        returnVal = "Invalid URL";
+    }
+
+    return returnVal;
 
 }
 

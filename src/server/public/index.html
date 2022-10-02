@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="http://127.0.0.1:3000/css/index.css">
         <script src="http://127.0.0.1:3000/js/webpackIndex.js"></script>
         <script src="http://127.0.0.1:3000/js/handleBibSess.js"></script>
+        <script src="http://127.0.0.1:3000/js/handleInput.js"></script>
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
     </head>
     <body class="mainBackgroundBody" scroll="no" style="overflow: hidden">
@@ -48,8 +49,19 @@
             <div class="citation3" id="citation3" onClick="copyText(3)">
                 <span class="citationtext" id="citationtext3">null</span>
             </div>
+            <div class="upload-btn-wrapper">
+                <button class="btn">Import Data</button>
+                <input type="file" id="fileInput" />
+            </div>
         </div>
     </body>
+    <script>
+        /*
+        This function will start the input handling function. It will allow
+        the program to read files. 
+        */
+        init();
+    </script>
     <script>
         //Generating random number
         let numVal = Math.floor(Math.random() * 3000);

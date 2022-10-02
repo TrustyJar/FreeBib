@@ -5,22 +5,32 @@ sent from so it can return back to the frontend.
 */
 async function parseDataChicago(citationData) {
 
-    let newCitationData = JSON.parse(citationData);
+    let returnVal = "";
 
-    let name = `${newCitationData.results[0].csl.author[0].given} ${newCitationData.results[0].csl.author[0].family}`
+    try {
 
-    let titleOfStory = `"${newCitationData.results[0].csl.title}"`
+        let newCitationData = JSON.parse(citationData);
 
-    let publisher = newCitationData.results[0].csl.publisher;
+        let name = `${newCitationData.results[0].csl.author[0].given} ${newCitationData.results[0].csl.author[0].family}`
 
-    let dayPublished = newCitationData.results[0].feedback._publishedDay
-    let yearPublished = newCitationData.results[0].feedback._publishedYear
-    let datepublished = newCitationData.results[0].feedback._publishedMonth;
-    datepublished = await parseDates(datepublished);
+        let titleOfStory = `"${newCitationData.results[0].csl.title}"`
 
-    let finalResult = `${name}, ${titleOfStory}, published on ${datepublished} ${dayPublished}, ${yearPublished} by ${publisher}.`
+        let publisher = newCitationData.results[0].csl.publisher;
 
-    return finalResult;
+        let dayPublished = newCitationData.results[0].feedback._publishedDay
+        let yearPublished = newCitationData.results[0].feedback._publishedYear
+        let datepublished = newCitationData.results[0].feedback._publishedMonth;
+        datepublished = await parseDates(datepublished);
+
+        let finalResult = `${name}, ${titleOfStory}, published on ${datepublished} ${dayPublished}, ${yearPublished} by ${publisher}.`
+
+        returnVal = finalResult;
+
+    } catch (e) {
+        returnVal = "Invalid URL"
+    }
+
+    return returnVal;
 
 }
 
