@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
         <link rel="stylesheet" href="http://127.0.0.1:3000/css/index.css">
         <script src="http://127.0.0.1:3000/js/webpackIndex.js"></script>
+        <script src="http://127.0.0.1:3000/js/handleBibSess.js"></script>
     </head>
     <body class="mainBackgroundBody" scroll="no" style="overflow: hidden">
         <div class="titleDiv">
@@ -63,13 +64,23 @@
         } else {
             document.getElementById("citationClass").style.display = "none";
             document.getElementById("citationClass2").style.display = "none";
+            handleBibSess();
         }
     </script>
     <script>
+        /*
+        This function will copy the citation to your clipboard 
+        upon clicking the div.
+        
+        @param citationNum  The number of the citation div to tell function
+        which one to copy.
+        */
         function copyText(citationNum) {
 
+            //Setting copy variable
             let copyText = "";
             
+            //Conditionals to determine which div to copy
             if(citationNum == 1) {
                 copyText = document.getElementById("citationtext1");
             } else if(citationNum == 2) {
@@ -78,10 +89,13 @@
                 copyText = document.getElementById("citationtext3");
             }
 
+            //Writing clipboard
             navigator.clipboard.writeText(copyText.innerHTML);
 
+            //Adding success message to frontend.
             document.getElementById("ringText4").style.display = "inline-block";
 
+            //Removing success message after 1 second.
             setTimeout(function() {
                     document.getElementById('ringText4').style.display = "none"
             }, 1000);

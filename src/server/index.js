@@ -133,10 +133,10 @@ async function runServer() {
             //Checking if there are alr no citations
             if(req.cookies.bibSess == "null") {
                 //If so, only adding one
-                newCookie = `${btoa(finalizedCitation)}:`;
+                newCookie = `${finalizedCitation}:`;
             } else {
                 //Else stacking
-                newCookie = req.cookies.bibSess + `${btoa(finalizedCitation)}:`;
+                newCookie = req.cookies.bibSess + `${finalizedCitation}:`;
             }
 
             //Re-adding the cookie to contain the new values

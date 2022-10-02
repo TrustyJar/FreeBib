@@ -82,12 +82,12 @@ async function submitForm() {
 
     if(url.includes("https://") || url.includes("http://")) {
 
-        //Encrypt the data
-        url = await encodeString(url)
-        citationType = await encodeString(citationType)
-
         //Check if invalid
         if(citationType != "invalid") {
+
+            //Encrypt the data
+            url = await encodeString(url)
+            citationType = await encodeString(citationType)
 
             document.getElementById('lds-ring').style.display = "inline-block";
             document.getElementById('ringText').style.display = "inline-block";
