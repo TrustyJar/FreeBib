@@ -200,18 +200,27 @@ async function runServer() {
             }
         }
     });
-    
+
+    /*
+    This is the 404 request page which all faulty requests will be sent to. Here
+    users will see the 404 message.
+    */
+    app.get('/404', function (req, res, next) {
+
+        if (req.headers['x-forwarded-proto'] != 'https') {
+            res.redirect('https://freebib.herokuapp.com/404');
+        } else {
+            res.status(404).sendFile(path.join(__dirname, './public/404.html'));
+        }
+    });
+
     /*
     This method will be used to redirect users whenever they visit an invalid page, rather
     than giving them the ugly express error.
     */
     app.use(function(req, res, next){
         //Sending 404 Message
-        if (req.headers['x-forwarded-proto'] != 'https') {
-            res.redirect('https://freebib.herokuapp.com/404');
-        } else {
-            res.status(404).sendFile(path.join(__dirname, './public/404.html'));
-        }
+        res.redirect('https://freebib.herokuapp.com/404');
     });
 
     /*
