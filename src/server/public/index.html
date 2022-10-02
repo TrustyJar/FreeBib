@@ -53,8 +53,33 @@
                 <button class="btn">Import Data</button>
                 <input type="file" id="fileInput" />
             </div>
+            <button class="exportBtn" id="exportBtn" onClick="exportFunc()" >Export Data</button>
         </div>
     </body>
+    <script>
+        /*
+        This function will add the export data to the clipboard, so
+        you can re-upload it as a .txt file later on.
+        */
+        function exportFunc() {
+
+            //Parsing Cookies
+            let parseURLData = document.cookie.split(";");
+            parseURLData = parseURLData[0].substring(8)
+            parseURLData = decodeURIComponent(parseURLData);
+
+            //Adding export data to clipboard
+            navigator.clipboard.writeText(parseURLData);
+
+            //Adding success message to frontend.
+            document.getElementById("ringText4").style.display = "inline-block";
+
+            //Removing success message after 1 second.
+            setTimeout(function() {
+                    document.getElementById('ringText4').style.display = "none"
+            }, 1000);
+        }
+    </script>
     <script>
         /*
         This function will start the input handling function. It will allow
