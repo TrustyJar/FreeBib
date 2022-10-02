@@ -136,9 +136,24 @@ async function submitForm() {
                 } else if(parseURLData.length == 3) {
                     document.getElementById(`citation2`).style.display = "flex";
                     document.getElementById(`citationtext2`).innerHTML = JSON.stringify(responseInfo.data)
-                } else {
+                } else if(parseURLData.length == 4) {
                     document.getElementById(`citation3`).style.display = "flex";
                     document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data)
+                } else {
+
+                    if(parseURLData.length % 4 == 1) {
+                        document.getElementById(`citation2`).style.display = "none";
+                        document.getElementById(`citation3`).style.display = "none";
+                        document.getElementById(`citation1`).style.display = "flex";
+                        document.getElementById(`citationtext1`).innerHTML = JSON.stringify(responseInfo.data)
+                    } else if(parseURLData.length % 4 == 2) {
+                        document.getElementById(`citation3`).style.display = "none";
+                        document.getElementById(`citation2`).style.display = "flex";
+                        document.getElementById(`citationtext2`).innerHTML = JSON.stringify(responseInfo.data)
+                    } else {
+                        document.getElementById(`citation3`).style.display = "flex";
+                        document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data) 
+                    }
                 }
 
             } else {

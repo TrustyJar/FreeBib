@@ -276,6 +276,7 @@ html, body {
     width: 39%;
     height: 15%;
     display: none;
+    cursor:pointer;
 }
 
 .citation2 {
@@ -290,6 +291,7 @@ html, body {
     width: 39%;
     height: 15%;
     display: none;
+    cursor:pointer;
 }
 
 .citation3 {
@@ -304,6 +306,7 @@ html, body {
     width: 39%;
     height: 15%;
     display: none;
+    cursor:pointer;
 }
 
 .lds-ring {
@@ -403,5 +406,22 @@ html, body {
     100% {
       transform: rotate(360deg);
     }
+}
+
+.citationtext {
+    text-align: center;
+    font-weight: 400; 
+    font-style: normal; 
+    color: '#00000'; 
+    text-decoration: none;
+    font-family: Optima, sans-serif;	
+    font-size: 100%;
+    line-height: 47px; 
+    letter-spacing: 0em; 
+    --para-spacing:0; 
+    text-transform: none; 
+    --head-indent:0; 
+    --numeric-list-marker:none; 
+    list-style-type: none;
 }
   
