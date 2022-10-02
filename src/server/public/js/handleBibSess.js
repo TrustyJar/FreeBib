@@ -49,3 +49,18 @@ function handleBibSess() {
 
 
 }
+
+/*
+This function will set a cookie inside of the web browser. It will
+allow you to create a cookie and run it in the background.
+*/
+async function setCookie(cname, cvalue, exdays) {
+    //Getting Date
+    var d = new Date();
+    //Setting Expiration Date
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    //Setting Expiration Date
+    var expires = "expires=" + d.toUTCString();
+    //Setting Cookie
+    document.cookie += cname + "=" + cvalue + ";" + expires + ";path=/";
+}

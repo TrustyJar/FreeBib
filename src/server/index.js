@@ -62,6 +62,17 @@ async function runServer() {
                     maxAge: 3.156e+10,
                     httpOnly: false
                 });
+            } else {
+                if(req.cookies.bibSess != "null") {
+                    let splitCookie = decodeURIComponent(req.cookies.bibSess);
+                    splitCookie = splitCookie.split(':');
+                    if(splitCookie.length > 10) {
+                        res.cookie('bibSess', "null", {
+                            maxAge: 3.156e+10,
+                            httpOnly: false
+                        }); 
+                    }
+                }
             }
             
             
