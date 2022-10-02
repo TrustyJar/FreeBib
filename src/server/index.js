@@ -4,6 +4,7 @@ const app = express();
 let port = process.env.PORT || 3000;
 let ejs = require('ejs')
 const cookieParser = require("cookie-parser");
+var sslRedirect = require(‘heroku-ssl-redirect’);
 const { v4: uuidv4 } = require('uuid');
 const { generateCitation } = require('../app/generateCitation.js')
 const {encryptData} = require('../../Security/encryptData.js');
@@ -34,6 +35,7 @@ async function runServer() {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));   
     app.use(cookieParser())
+    app.use(sslRedirect());
 
 
     /*
