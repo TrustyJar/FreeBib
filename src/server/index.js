@@ -79,7 +79,7 @@ async function runServer() {
         }
 
         if (req.headers['x-forwarded-proto'] != 'https') {
-            res.redirect(status, 'https://' + req.hostname + req.originalUrl);
+            res.redirect('https://freebib.herokuapp.com/');
         } else {
             setInitSessCookie();
         }
@@ -172,7 +172,7 @@ async function runServer() {
         }
 
         if (req.headers['x-forwarded-proto'] != 'https') {
-            res.redirect(status, 'https://' + req.hostname + req.originalUrl);
+            res.redirect('https://freebib.herokuapp.com/postCitation');
         } else {
             //Security functions to check. Looking for all body and cookies
             if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
@@ -207,7 +207,11 @@ async function runServer() {
     */
     app.use(function(req, res, next){
         //Sending 404 Message
-        res.status(404).sendFile(path.join(__dirname, './public/404.html'));
+        if (req.headers['x-forwarded-proto'] != 'https') {
+            res.redirect('https://freebib.herokuapp.com/404');
+        } else {
+            res.status(404).sendFile(path.join(__dirname, './public/404.html'));
+        }
     });
 
     /*
