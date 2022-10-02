@@ -1,5 +1,5 @@
 /*
-This function will parse the data into chicago form. Once it is complete, it
+This function will parse the data into mla form. Once it is complete, it
 will return the data back to the function the request was
 sent from so it can return back to the frontend.
 */

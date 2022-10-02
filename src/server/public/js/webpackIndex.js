@@ -89,6 +89,9 @@ async function submitForm() {
         //Check if invalid
         if(citationType != "invalid") {
 
+            document.getElementById('lds-ring').style.display = "inline-block";
+            document.getElementById('ringText').style.display = "inline-block";
+
             let responseInfo = "";
 
             try {
@@ -108,6 +111,45 @@ async function submitForm() {
 
             } catch (e) {
                 responseInfo = null;
+            }
+
+            if(responseInfo != null) {
+                document.getElementById("citationClass").style.display = "none";
+                document.getElementById("citationClass2").style.display = "none";
+
+                document.getElementById('lds-ring').style.display = "none";
+                document.getElementById('ringText').style.display = "none";
+                document.getElementById('ringText2').style.display = 'inline-block';
+                
+                setTimeout(function() {
+                    document.getElementById('ringText2').style.display = "none"
+                }, 1000);
+
+                let parseURLData = document.cookie.split(" ");
+                parseURLData = parseURLData[1].substring(8)
+                parseURLData = decodeURIComponent(parseURLData);
+                parseURLData = parseURLData.split(':');
+                
+                if(parseURLData.length == 2) {
+                    document.getElementById(`citation1`).style.display = "flex";
+                    document.getElementById(`citationtext1`).innerHTML = JSON.stringify(responseInfo.data)
+                } else if(parseURLData.length == 3) {
+                    document.getElementById(`citation2`).style.display = "flex";
+                    document.getElementById(`citationtext2`).innerHTML = JSON.stringify(responseInfo.data)
+                } else {
+                    document.getElementById(`citation3`).style.display = "flex";
+                    document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data)
+                }
+
+            } else {
+                document.getElementById('lds-ring').style.display = "none";
+                document.getElementById('ringText').style.display = "none";
+
+                document.getElementById('ringText3').style.display = 'inline-block';
+                
+                setTimeout(function() {
+                    document.getElementById('ringText3').style.display = "none"
+                }, 1000);
             }
             
         } else {

@@ -96,13 +96,21 @@ async function runServer() {
 
                 //Conditional to check citation type.
                 if(decryptedFormat == "chicago") {
+                    //Parsing data in chicago
                     finalizedCitation = await parseDataChicago(JSON.stringify(citationData));
+                    //Handling cookies
+                    await handleCookies(finalizedCitation);
+                    //Sending Response
                     res.send({
                         "status": 200,
                         "data": finalizedCitation
                     });
                 } else if(decryptedFormat == "mla") {
+                    //Parsing data in mla
                     finalizedCitation = await parseDataMLA(JSON.stringify(citationData));
+                    //Handling cookies
+                    await handleCookies(finalizedCitation);
+                    //Sending Response
                     res.send({
                         "status": 200,
                         "data": finalizedCitation
@@ -110,6 +118,33 @@ async function runServer() {
                 }
             }            
             
+        }
+
+        /*
+        This function will handle the session cookie which contains all of the info
+        for the session (citations). It is packed to base64 for convenience but really,
+        there is no use for encrypting the data.
+        */
+        async function handleCookies(finalizedCitation) {
+
+            //Defining new cookie value
+            let newCookie = "";
+
+            //Checking if there are alr no citations
+            if(req.cookies.bibSess == "null") {
+                //If so, only adding one
+                newCookie = `${btoa(finalizedCitation)}:`;
+            } else {
+                //Else stacking
+                newCookie = req.cookies.bibSess + `${btoa(finalizedCitation)}:`;
+            }
+
+            //Re-adding the cookie to contain the new values
+            res.cookie('bibSess', newCookie, {
+                maxAge: 3.156e+10,
+                httpOnly: false
+            });
+
         }
 
         //Security functions to check. Looking for all body and cookies
