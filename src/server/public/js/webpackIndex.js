@@ -114,46 +114,61 @@ async function submitForm() {
             }
 
             if(responseInfo != null) {
-                document.getElementById("citationClass").style.display = "none";
-                document.getElementById("citationClass2").style.display = "none";
 
-                document.getElementById('lds-ring').style.display = "none";
-                document.getElementById('ringText').style.display = "none";
-                document.getElementById('ringText2').style.display = 'inline-block';
-                
-                setTimeout(function() {
-                    document.getElementById('ringText2').style.display = "none"
-                }, 1000);
+                if(responseInfo.data == "undefined" || responseInfo.data == undefined) {
 
-                let parseURLData = document.cookie.split(" ");
-                parseURLData = parseURLData[1].substring(8)
-                parseURLData = decodeURIComponent(parseURLData);
-                parseURLData = parseURLData.split(':');
-                
-                if(parseURLData.length == 2) {
-                    document.getElementById(`citation1`).style.display = "flex";
-                    document.getElementById(`citationtext1`).innerHTML = JSON.stringify(responseInfo.data)
-                } else if(parseURLData.length == 3) {
-                    document.getElementById(`citation2`).style.display = "flex";
-                    document.getElementById(`citationtext2`).innerHTML = JSON.stringify(responseInfo.data)
-                } else if(parseURLData.length == 4) {
-                    document.getElementById(`citation3`).style.display = "flex";
-                    document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data)
+                    document.getElementById('lds-ring').style.display = "none";
+                    document.getElementById('ringText').style.display = "none";
+
+                    document.getElementById('ringText3').style.display = 'inline-block';
+
+                    setTimeout(function() {
+                        document.getElementById('ringText3').style.display = "none"
+                    }, 1000);
+
                 } else {
 
-                    if(parseURLData.length % 3 == 2) {
-                        document.getElementById(`citation2`).style.display = "none";
-                        document.getElementById(`citation3`).style.display = "none";
+                    document.getElementById("citationClass").style.display = "none";
+                    document.getElementById("citationClass2").style.display = "none";
+
+                    document.getElementById('lds-ring').style.display = "none";
+                    document.getElementById('ringText').style.display = "none";
+                    document.getElementById('ringText2').style.display = 'inline-block';
+                    
+                    setTimeout(function() {
+                        document.getElementById('ringText2').style.display = "none"
+                    }, 1000);
+
+                    let parseURLData = document.cookie.split(" ");
+                    parseURLData = parseURLData[1].substring(8)
+                    parseURLData = decodeURIComponent(parseURLData);
+                    parseURLData = parseURLData.split(':');
+                    
+                    if(parseURLData.length == 2) {
                         document.getElementById(`citation1`).style.display = "flex";
                         document.getElementById(`citationtext1`).innerHTML = JSON.stringify(responseInfo.data)
-                    } else if(parseURLData.length % 3 == 0) {
-                        document.getElementById(`citation3`).style.display = "none";
+                    } else if(parseURLData.length == 3) {
                         document.getElementById(`citation2`).style.display = "flex";
                         document.getElementById(`citationtext2`).innerHTML = JSON.stringify(responseInfo.data)
-                    } else if(parseURLData.length % 3 == 1) {
+                    } else if(parseURLData.length == 4) {
                         document.getElementById(`citation3`).style.display = "flex";
-                        document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data) 
-                    } 
+                        document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data)
+                    } else {
+
+                        if(parseURLData.length % 3 == 2) {
+                            document.getElementById(`citation2`).style.display = "none";
+                            document.getElementById(`citation3`).style.display = "none";
+                            document.getElementById(`citation1`).style.display = "flex";
+                            document.getElementById(`citationtext1`).innerHTML = JSON.stringify(responseInfo.data)
+                        } else if(parseURLData.length % 3 == 0) {
+                            document.getElementById(`citation3`).style.display = "none";
+                            document.getElementById(`citation2`).style.display = "flex";
+                            document.getElementById(`citationtext2`).innerHTML = JSON.stringify(responseInfo.data)
+                        } else if(parseURLData.length % 3 == 1) {
+                            document.getElementById(`citation3`).style.display = "flex";
+                            document.getElementById(`citationtext3`).innerHTML = JSON.stringify(responseInfo.data) 
+                        } 
+                    }
                 }
 
             } else {
