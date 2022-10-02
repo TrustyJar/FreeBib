@@ -89,6 +89,8 @@ async function submitForm() {
         //Check if invalid
         if(citationType != "invalid") {
 
+            let responseInfo = "";
+
             try {
                 const response = await fetch('/postCitation', {
                     method: 'POST',
@@ -102,11 +104,10 @@ async function submitForm() {
                         'Content-type': 'application/json'
                     }
                 })
-                const resData = await response.json();
-                console.log(resData)
+                responseInfo = await response.json();
 
             } catch (e) {
-                
+                responseInfo = null;
             }
             
         } else {
