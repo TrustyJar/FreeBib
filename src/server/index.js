@@ -4,7 +4,6 @@ const app = express();
 let port = process.env.PORT || 3000;
 let ejs = require('ejs')
 const cookieParser = require("cookie-parser");
-var sslRedirect = require('heroku-ssl-redirect').default
 const { v4: uuidv4 } = require('uuid');
 const { generateCitation } = require('../app/generateCitation.js')
 const {encryptData} = require('../../Security/encryptData.js');
@@ -35,7 +34,6 @@ async function runServer() {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));   
     app.use(cookieParser())
-    app.use(sslRedirect());
 
 
     /*
@@ -77,11 +75,14 @@ async function runServer() {
                 }
             }
             
-            
             generateData();
         }
 
-        setInitSessCookie();
+        if (req.headers['x-forwarded-proto'] != 'https') {
+            res.redirect(status, 'https://' + req.hostname + req.originalUrl);
+        } else {
+            setInitSessCookie();
+        }
     });
 
     /*
@@ -170,18 +171,25 @@ async function runServer() {
 
         }
 
-        //Security functions to check. Looking for all body and cookies
-        if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
-            //Checking if the security token condition is true
-            if(req.body.securityToken % 7 == 0) {
-                //Decrypting Data
-                const preSess = await encryptData("decryption", req.cookies.preSess);
-                if(preSess == "") {
-                    res.status(403).send(accessDenied);
-                    //Checking if preSess = the IP
-                } else if(req.headers['x-forwarded-for'] || req.connection.remoteAddress) {
-                    //If conditions all true, run main func.
-                    runPostFunc();
+        if (req.headers['x-forwarded-proto'] != 'https') {
+            res.redirect(status, 'https://' + req.hostname + req.originalUrl);
+        } else {
+            //Security functions to check. Looking for all body and cookies
+            if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
+                //Checking if the security token condition is true
+                if(req.body.securityToken % 7 == 0) {
+                    //Decrypting Data
+                    const preSess = await encryptData("decryption", req.cookies.preSess);
+                    if(preSess == "") {
+                        res.status(403).send(accessDenied);
+                        //Checking if preSess = the IP
+                    } else if(req.headers['x-forwarded-for'] || req.connection.remoteAddress) {
+                        //If conditions all true, run main func.
+                        runPostFunc();
+                    } else {
+                        //403
+                        res.status(403).send(accessDenied);
+                    }
                 } else {
                     //403
                     res.status(403).send(accessDenied);
@@ -190,9 +198,6 @@ async function runServer() {
                 //403
                 res.status(403).send(accessDenied);
             }
-        } else {
-            //403
-            res.status(403).send(accessDenied);
         }
     });
     
