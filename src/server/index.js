@@ -78,8 +78,8 @@ async function runServer() {
             generateData();
         }
 
-        if (req.headers['x-forwarded-proto'] != 'https') {
-            res.redirect('https://freebib.herokuapp.com/');
+        if (req.headers['x-forwarded-proto'] != 'https' && req.headers['host'] != 'localhost:3000') {
+            res.redirect('https://www.freebib.org/');
         } else {
             setInitSessCookie();
         }
@@ -171,8 +171,8 @@ async function runServer() {
 
         }
 
-        if (req.headers['x-forwarded-proto'] != 'https') {
-            res.redirect('https://freebib.herokuapp.com/postCitation');
+        if (req.headers['x-forwarded-proto'] != 'https' && req.headers['host'] != 'localhost:3000') {
+            res.redirect('https://www.freebib.org/postCitation');
         } else {
             //Security functions to check. Looking for all body and cookies
             if(req.body.url && req.body.type && req.body.securityToken && req.cookies.preSess) {
@@ -207,8 +207,8 @@ async function runServer() {
     */
     app.get('/404', function (req, res, next) {
 
-        if (req.headers['x-forwarded-proto'] != 'https') {
-            res.redirect('https://freebib.herokuapp.com/404');
+        if (req.headers['x-forwarded-proto'] != 'https' && req.headers['host'] != 'localhost:3000') {
+            res.redirect('https://www.freebib.org/404');
         } else {
             res.status(404).sendFile(path.join(__dirname, './public/404.html'));
         }
