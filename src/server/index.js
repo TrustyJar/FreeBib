@@ -19,7 +19,7 @@ const {parseDataMLA} = require('../app/parseTypes/mla.js')
 /*
 This function, which will be called from the main file, will start the server
 of the app, allowing users to see and communicate with the frontend. This will
-be the main file of the program, calling many other seperate function files.
+be the main file of the program, calling many other seperate function files
 */
 async function runServer() {
 
