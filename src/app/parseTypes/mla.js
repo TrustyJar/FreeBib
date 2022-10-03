@@ -22,7 +22,7 @@ async function parseDataMLA(citationData) {
 
         let finalResult = `${name}. ${titleOfStory.slice(0, -1)}, ${section}, edited by ${name}, ${yearPublished}`
 
-        returnVal = finalResult;
+        returnVal = finalResult.replace('\n', '');
 
     } catch (e) {
         returnVal = "Invalid URL";

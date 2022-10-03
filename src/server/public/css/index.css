@@ -1,6 +1,6 @@
 @viewport {
-    width: device-width ;
-    zoom: 1.0 ;
+    width: device-width;
+    zoom: 1.0;
 }
 
 .mainBackgroundBody {
@@ -249,8 +249,8 @@
     top: 0%;
     left: 52%;
     background: #ffffff;
-    padding: 30px;
-    border-radius: 7px;
+    padding: 2.1%;
+    border-radius: 1%;
     display:block;
     width: 41%;
     height: 85%;

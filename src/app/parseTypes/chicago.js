@@ -24,7 +24,7 @@ async function parseDataChicago(citationData) {
 
         let finalResult = `${name}, ${titleOfStory}, published on ${datepublished} ${dayPublished}, ${yearPublished} by ${publisher}.`
 
-        returnVal = finalResult;
+        returnVal = finalResult.replace('\n', '');
 
     } catch (e) {
         returnVal = "Invalid URL"
