@@ -206,12 +206,7 @@ async function runServer() {
     users will see the 404 message.
     */
     app.get('/404', function (req, res, next) {
-
-        if (req.headers['x-forwarded-proto'] != 'https' && req.headers['host'] != 'localhost:3000') {
-            res.redirect('https://www.freebib.org/404');
-        } else {
-            res.status(404).sendFile(path.join(__dirname, './public/404.html'));
-        }
+        res.status(200).sendFile(path.join(__dirname, './public/404.html'));
     });
 
     /*
@@ -220,7 +215,11 @@ async function runServer() {
     */
     app.use(function(req, res, next){
         //Sending 404 Message
-        res.redirect('https://freebib.herokuapp.com/404');
+        if (req.headers['x-forwarded-proto'] != 'https' && req.headers['host'] != 'localhost:3000') {
+            res.redirect('https://www.freebib.org/404');
+        } else {
+            res.status(200).sendFile(path.join(__dirname, './public/404.html'));
+        }
     });
 
     /*
