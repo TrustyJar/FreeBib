@@ -224,7 +224,7 @@ async function runServer() {
 
     /*
     Setting the localhost port, this does not matter much with the
-    actual app as it uses https and not http.
+    actual app as it uses https and not http..
     */
     app.listen(port, () => {
         console.log(`Citation app listening at http://127.0.0.1:${port}`);
