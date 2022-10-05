@@ -7,7 +7,7 @@ const fs = require('fs');
 /*
 This is the citation function. This function will be ran by 
 the server once the post request is fulfilled. 
-Then it will respond data for the main function to parse.
+Then it will respond data for the main function to parse
 */
 async function generateCitation(citationURL) {
 
