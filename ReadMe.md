@@ -5,7 +5,7 @@ the other chegg services as they run a tomn of ads.
 
 ## Installation
 
-1. Run the command `git clone https://github.com/TrustyJar/FreeBib` inside if your terminal
+1. Run the command `git clone https://github.com/TrustyJar/FreeBib.git` inside if your terminal
 2. Enter the folder by running `cd FreeBib`
 3. Install all dependencies by running `yarn install`. If you do not have yarn, run `npm i -g yarn` beforehand
 4. Simply run `npm start` or `node index.js` to start the server
@@ -19,6 +19,10 @@ clipboard!
 
 To import files, first export your current citations and paste it into a .txt file. Then upload the .txt file
 using the import button.
+
+## Live Site
+
+<img src="https://i.ibb.co/W3dBFPN/Screen-Shot-2022-10-04-at-10-05-18-PM.png">
 
 ## Contributing
 
