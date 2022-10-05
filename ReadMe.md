@@ -3,6 +3,9 @@
 Freebib is a free online open source bibliography. It was made as an alternative for 
 the other chegg services as they run a tomn of ads. 
 
+*Note* - The webiste `https://www.freebib.org` will not work because all proxy data has been
+changed after pushing.
+
 ## Installation
 
 1. Run the command `git clone https://github.com/TrustyJar/FreeBib.git` inside if your terminal
